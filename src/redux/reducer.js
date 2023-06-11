@@ -1,4 +1,6 @@
-export const rootReducer = (state, action) => {
+import { initialState } from './initialState';
+
+export const rootReducer = (state = initialState, action) => {
   const { payload, type } = action;
   if (type === 'contacts/addContact') {
     // if (payload.length !== 0)
