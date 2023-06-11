@@ -7,4 +7,3 @@ const initialState = {
 };
 
 export const store = createStore(rootReducer, initialState);
-console.log(store);
