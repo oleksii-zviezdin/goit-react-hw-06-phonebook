@@ -1,18 +1,27 @@
-import { PropTypes } from "prop-types";
-import { ContactItem, RemoveButton } from "./ContactListItem.styled";
+import { PropTypes } from 'prop-types';
+import { ContactItem, RemoveButton } from './ContactListItem.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteContact } from 'redux/actions';
 
-export const ContactListItem = ({ name, id, onRemoveContact, tel }) => {
-    return (
-        <ContactItem>
-            <p>{name}: <span>{tel}</span></p>
-            <RemoveButton type="button" onClick={() => onRemoveContact(id)}>Revome contact</RemoveButton>
-        </ContactItem>
-    )
-}
+export const ContactListItem = ({ id }) => {
+  const contact = useSelector(state =>
+    state.contacts.find(contact => id === contact.id)
+  );
+  const dispatch = useDispatch();
+  const hanldeDelete = () => dispatch(deleteContact(id));
+
+  return (
+    <ContactItem>
+      <p>
+        {contact.inputName}: <span>{contact.inputNumber}</span>
+      </p>
+      <RemoveButton type="button" onClick={hanldeDelete}>
+        Revome contact
+      </RemoveButton>
+    </ContactItem>
+  );
+};
 
 ContactListItem.propTypes = {
-    name: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    tel: PropTypes.string.isRequired,
-    onRemoveContact: PropTypes.func.isRequired,
-}
+  id: PropTypes.string.isRequired,
+};

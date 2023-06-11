@@ -1,31 +1,29 @@
-import { PropTypes } from "prop-types";
-import { ContactListItem } from "../index";
-import { ContnactsList } from "./ContactList.styled";
+import { ContactListItem } from '../index';
+import { ContnactsList } from './ContactList.styled';
+import { useSelector } from 'react-redux';
 
-export const ContactList = ({ contacts, onRemoveContact }) => {  
-        return (
-            <ContnactsList>
-                {contacts.map(({inputName, id, inputNumber}) => {
-                    return (
-                        <ContactListItem
-                            key={id}
-                            id={id}
-                            name={inputName}
-                            tel={inputNumber}
-                            onRemoveContact={onRemoveContact}
-                        />
-                )})}
-            </ContnactsList>
-        )
-}
+export const ContactList = () => {
+  const contacts = useSelector(state => state.contacts);
 
-ContactList.propTypes = {
-    // contacts: PropTypes.string.isRequired,
-    contacts: PropTypes.arrayOf(
-        PropTypes.shape({
-        inputName: PropTypes.string.isRequired,
-        id: PropTypes.string.isRequired,
-        inputNumber: PropTypes.string.isRequired,
-    }).isRequired),
-    onRemoveContact: PropTypes.func.isRequired,
-}
+  const filter = useSelector(state => state.filter);
+
+  const getFilteredContacts = () => {
+    const normalizedFilter = filter.toLowerCase();
+    if (contacts.length !== 0) {
+      return contacts.filter(
+        ({ inputName }) =>
+          inputName && inputName.toLowerCase().includes(normalizedFilter)
+      );
+    }
+  };
+
+  const filteredContacts = getFilteredContacts();
+
+  return (
+    <ContnactsList>
+      {filteredContacts.map(({ id }) => {
+        return <ContactListItem key={id} id={id} />;
+      })}
+    </ContnactsList>
+  );
+};
