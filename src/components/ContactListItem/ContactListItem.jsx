@@ -1,10 +1,10 @@
 import { PropTypes } from 'prop-types';
 import { ContactItem, RemoveButton } from './ContactListItem.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from 'redux/actions';
+import { deleteContact } from '../../redux/contactsSlice';
 
 export const ContactListItem = ({ id }) => {
-  const contact = useSelector(state =>
+  const { inputName, inputNumber } = useSelector(state =>
     state.contacts.find(contact => id === contact.id)
   );
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export const ContactListItem = ({ id }) => {
   return (
     <ContactItem>
       <p>
-        {contact.inputName}: <span>{contact.inputNumber}</span>
+        {inputName}: <span>{inputNumber}</span>
       </p>
       <RemoveButton type="button" onClick={hanldeDelete}>
         Revome contact

@@ -1,7 +1,8 @@
 import { Form, Span, AddButton, Label, Input } from './ContactForm.styled';
 import { useState } from 'react';
-import { addContact } from 'redux/actions';
+import { addContact } from '../../redux/contactsSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { getContacts } from 'redux/selector';
 
 export const ContactForm = () => {
   const [inputName, setInputName] = useState('');
@@ -16,7 +17,7 @@ export const ContactForm = () => {
       setInputNumber(value);
     }
   };
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
   const handleAddContactSubmit = e => {

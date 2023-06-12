@@ -1,35 +1,33 @@
-import { nanoid } from '@reduxjs/toolkit';
+// import { nanoid } from '@reduxjs/toolkit';
+// import { createAction } from '@reduxjs/toolkit';
+// import {
+//   ADD_CONTACT,
+//   DELETE_CONTACT,
+//   FILTER_CONTACT,
+//   READ_CONTACT_FROM_LOCAL_STORAGE,
+// } from './type';
 
-export const addContact = contact => {
-  const { inputName, inputNumber } = contact;
-  return {
-    type: 'contacts/addContact',
-    payload: {
-      id: nanoid(),
-      inputName,
-      inputNumber,
-    },
-  };
-};
+// export const addContact = createAction(ADD_CONTACT, contact => {
+//   const { inputName, inputNumber } = contact;
+//   return {
+//     payload: {
+//       id: nanoid(),
+//       inputName,
+//       inputNumber,
+//     },
+//   };
+// });
 
-export const deleteContact = contactId => {
-  return {
-    type: 'contacts/deleteContact',
-    payload: contactId,
-  };
-};
+// export const deleteContact = createAction(DELETE_CONTACT);
 
-export const filterContacts = typeValue => {
-  return {
-    type: 'contacts/filterContacts',
-    payload: typeValue,
-  };
-};
+// export const filterContacts = createAction(FILTER_CONTACT);
 
-export const readContactsFromLocalStorage = LS_KEY => {
-  const contactsFromLocalStorage = JSON.parse(localStorage.getItem(LS_KEY));
-  return {
-    type: 'contacts/readContactsFromLocalStorage',
-    payload: contactsFromLocalStorage,
-  };
-};
+// export const readContactsFromLocalStorage = createAction(
+//   READ_CONTACT_FROM_LOCAL_STORAGE,
+//   LS_KEY => {
+//     const contactsFromLocalStorage = JSON.parse(localStorage.getItem(LS_KEY));
+//     return {
+//       payload: contactsFromLocalStorage,
+//     };
+//   }
+// );

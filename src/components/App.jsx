@@ -2,17 +2,19 @@ import { ContactForm, ContactList, Notification, Filter } from './index';
 import { Container, FormTitle, ContnactsTitle } from './App.styled';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { readContactsFromLocalStorage } from 'redux/actions';
+import { readContactsFromLocalStorage } from '../redux/contactsSlice';
+import { getContacts } from 'redux/selector';
 
 const LS_KEY = 'contact_list';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(getContacts);
+  console.log(contacts);
 
   useEffect(() => {
     const contactsFromLocalStorage = JSON.parse(localStorage.getItem(LS_KEY));
-    if (contactsFromLocalStorage.length !== 0)
+    if (contactsFromLocalStorage?.length !== 0)
       dispatch(readContactsFromLocalStorage(LS_KEY));
   }, [dispatch]);
 
