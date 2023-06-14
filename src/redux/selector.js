@@ -7,16 +7,11 @@ export const getFilteredContacts = (filter, contacts) => {
   if (!filter) {
     return contacts;
   }
+  console.log(filter);
   const normalizedFilter = filter.toLowerCase();
-  if (contacts.length !== 0)
-    contacts.filter(contact =>
-      contact?.inputName.toLowerCase().includes(normalizedFilter)
+  if (contacts.length !== 0) {
+    return contacts.filter(contact =>
+      contact.inputName.toLowerCase().includes(normalizedFilter)
     );
-  //     {
-  //     return setContacts(
-  //       contacts.filter(contact =>
-  //         contact?.inputName.toLowerCase().includes(normalizedFilter)
-  //       )
-  //     );
-  //   }
+  }
 };

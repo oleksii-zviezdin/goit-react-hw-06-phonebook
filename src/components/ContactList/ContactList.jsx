@@ -11,12 +11,18 @@ export const ContactList = () => {
 
   const filteredContacts = getFilteredContacts(filter, contacts);
   console.log(filteredContacts);
-
   return (
     <ContnactsList>
       {filteredContacts &&
-        filteredContacts.map(({ id }) => {
-          return <ContactListItem key={id} id={id} />;
+        filteredContacts.map(({ id, inputName, inputNumber }) => {
+          return (
+            <ContactListItem
+              key={id}
+              id={id}
+              name={inputName}
+              tel={inputNumber}
+            />
+          );
         })}
     </ContnactsList>
   );

@@ -2,24 +2,17 @@ import { PropTypes } from 'prop-types';
 import { ContactItem, RemoveButton } from './ContactListItem.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from '../../redux/contactsSlice';
-import { getContacts } from 'redux/selector';
+import { getFilter } from 'redux/selector';
 
-export const ContactListItem = ({ id }) => {
-  // const { inputName, inputNumber } = useSelector(getContacts);
-  const { contacts } = useSelector(getContacts);
-  console.log(contacts);
-  const contactByID = contacts.filter(contact => id === contact.id);
-  console.log(contactByID);
-  const { inputName, inputNumber } = contactByID;
-  console.log(inputName);
-  console.log(inputNumber);
+export const ContactListItem = ({ id, name, tel }) => {
+  const filterValue = useSelector(getFilter);
   const dispatch = useDispatch();
   const hanldeDelete = () => dispatch(deleteContact(id));
-
+  console.log(filterValue);
   return (
     <ContactItem>
       <p>
-        {inputName}: <span>{inputNumber}</span>
+        {name}: <span>{tel}</span>
       </p>
       <RemoveButton type="button" onClick={hanldeDelete}>
         Revome contact
@@ -29,5 +22,7 @@ export const ContactListItem = ({ id }) => {
 };
 
 ContactListItem.propTypes = {
+  name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  tel: PropTypes.string.isRequired,
 };

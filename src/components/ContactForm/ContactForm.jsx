@@ -37,7 +37,8 @@ export const ContactForm = () => {
       return alert(`"${inputNumber}" is already in contacts`);
     } else {
       dispatch(addContact({ inputName, inputNumber }));
-      formReff.current.reset();
+      setTypeName('');
+      setTypetNumber('');
     }
   };
 
