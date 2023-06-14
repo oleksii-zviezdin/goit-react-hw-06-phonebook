@@ -1,32 +1,23 @@
-import { getState } from 'redux/selector';
+import { getContacts, getFilter } from 'redux/selector';
 import { ContactListItem } from '../index';
 import { ContnactsList } from './ContactList.styled';
 import { useSelector } from 'react-redux';
-
+import { getFilteredContacts } from 'redux/selector';
 export const ContactList = () => {
-  const { contacts, filter } = useSelector(getState);
-  if (!filter) {
-    return;
-  }
+  const { contacts } = useSelector(getContacts);
+  console.log(contacts);
+  const filter = useSelector(getFilter);
+  console.log(filter);
 
-  const getFilteredContacts = () => {
-    const normalizedFilter = filter.toLowerCase();
-    if (contacts.length !== 0) {
-      return contacts.filter(
-        ({ inputName }) =>
-          inputName && inputName.toLowerCase().includes(normalizedFilter)
-      );
-    }
-  };
-
-  const filteredContacts = getFilteredContacts();
+  const filteredContacts = getFilteredContacts(filter, contacts);
   console.log(filteredContacts);
 
   return (
     <ContnactsList>
-      {filteredContacts.map(({ id }) => {
-        return <ContactListItem key={id} id={id} />;
-      })}
+      {filteredContacts &&
+        filteredContacts.map(({ id }) => {
+          return <ContactListItem key={id} id={id} />;
+        })}
     </ContnactsList>
   );
 };

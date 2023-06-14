@@ -1,47 +1,48 @@
 import { Form, Span, AddButton, Label, Input } from './ContactForm.styled';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { addContact } from '../../redux/contactsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts } from 'redux/selector';
 
 export const ContactForm = () => {
-  const [inputName, setInputName] = useState('');
-  const [inputNumber, setInputNumber] = useState('');
-  const inputContact = { inputName, inputNumber };
+  const [inputName, setTypeName] = useState('');
+  const [inputNumber, setTypetNumber] = useState('');
+  const dispatch = useDispatch();
+
+  const formReff = useRef(null);
+  const { contacts } = useSelector(getContacts);
 
   const handleChange = e => {
     const { name, value } = e.currentTarget;
     if (name === 'name') {
-      setInputName(value);
+      setTypeName(value);
     } else if (name === 'number') {
-      setInputNumber(value);
+      setTypetNumber(value);
     }
   };
-  const contacts = useSelector(getContacts);
-  const dispatch = useDispatch();
 
   const handleAddContactSubmit = e => {
     e.preventDefault();
 
-    const arryName = contacts.map(({ inputName }) => inputName);
-    const arryNumber = contacts.map(({ inputNumber }) => inputNumber);
-
-    const isIncludeContactName = arryName.includes(inputName);
-    const isIncludeContactNumber = arryNumber.includes(inputNumber);
+    const isIncludeContactName = contacts.find(
+      contact => contact.inputName === inputName
+    );
+    const isIncludeContactNumber = contacts.find(
+      contact => contact.inputNumber === inputNumber
+    );
 
     if (isIncludeContactName) {
       return alert(`"${inputName}" is already in contacts`);
     } else if (isIncludeContactNumber) {
       return alert(`"${inputNumber}" is already in contacts`);
     } else {
-      dispatch(addContact(inputContact));
-      setInputName('');
-      setInputNumber('');
+      dispatch(addContact({ inputName, inputNumber }));
+      formReff.current.reset();
     }
   };
 
   return (
-    <Form onSubmit={handleAddContactSubmit}>
+    <Form ref={formReff} onSubmit={handleAddContactSubmit}>
       <Label>
         <Span>Name</Span>
         <Input

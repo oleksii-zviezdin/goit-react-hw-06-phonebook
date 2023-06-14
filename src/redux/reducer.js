@@ -1,9 +1,8 @@
-import { contactsReducer } from './contactsSlice';
+import { persistedReducer } from './contactsSlice';
 
 export const reducer = {
-  contacts: contactsReducer,
+  contacts: persistedReducer,
 };
-
 // import { createReducer } from '@reduxjs/toolkit';
 // import { initialState } from './initialState';
 // import {
