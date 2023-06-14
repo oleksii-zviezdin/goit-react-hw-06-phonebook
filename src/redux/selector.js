@@ -5,7 +5,6 @@ export const getFilteredContacts = (filter, contacts) => {
   if (!filter) {
     return contacts;
   }
-  console.log(filter);
   const normalizedFilter = filter.toLowerCase();
   if (contacts.length !== 0) {
     return contacts.filter(contact =>
