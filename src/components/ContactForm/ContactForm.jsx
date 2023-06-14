@@ -10,7 +10,7 @@ export const ContactForm = () => {
   const dispatch = useDispatch();
 
   const formReff = useRef(null);
-  const { contacts } = useSelector(getContacts);
+  const  contacts  = useSelector(getContacts);
 
   const handleChange = e => {
     const { name, value } = e.currentTarget;
