@@ -6,7 +6,6 @@ import { getFilter } from 'redux/selector';
 
 export const Filter = () => {
   const filteValue = useSelector(getFilter);
-  console.log(filteValue);
   const dispatch = useDispatch();
   const changeFilter = e => dispatch(filterContacts(e.currentTarget.value));
   return (

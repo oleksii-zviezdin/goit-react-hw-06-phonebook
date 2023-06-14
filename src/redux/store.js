@@ -1,4 +1,3 @@
-// import { contactsReducer } from './contacstSlice';
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore } from 'redux-persist';
 import { reducer } from './reducer';

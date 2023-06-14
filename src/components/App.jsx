@@ -7,7 +7,6 @@ export const App = () => {
   const { contacts } = useSelector(getContacts);
 
   const contactsLength = contacts.length;
-  console.log(contactsLength);
 
   return (
     <Container>
