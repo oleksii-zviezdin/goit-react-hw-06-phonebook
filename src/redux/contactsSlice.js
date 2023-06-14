@@ -6,6 +6,7 @@ import storage from 'redux-persist/lib/storage';
 const persistConfig = {
   key: 'contacts',
   storage,
+  blacklist: ['filter'],
 };
 
 export const contactsSlice = createSlice({
@@ -17,12 +18,10 @@ export const contactsSlice = createSlice({
         state.contacts.push(payload);
       },
       prepare: contact => {
-        const { inputName, inputNumber } = contact;
         return {
           payload: {
             id: nanoid(),
-            inputName,
-            inputNumber,
+            ...contact,
           },
         };
       },
@@ -33,19 +32,6 @@ export const contactsSlice = createSlice({
     filterContacts: (state, { payload }) => {
       state.filter = payload;
     },
-    //   readContactsFromLocalStorage: {
-    //     reducer: (state, { payload }) => {
-    //       state.contacts = payload;
-    //     },
-    //     prepare: LS_KEY => {
-    //       const contactsFromLocalStorage = JSON.parse(
-    //         localStorage.getItem(LS_KEY)
-    //       );
-    //       return {
-    //         payload: contactsFromLocalStorage,
-    //       };
-    //     },
-    //   },
   },
 });
 
@@ -59,56 +45,3 @@ export const {
 const contactsReducer = contactsSlice.reducer;
 
 export const persistedReducer = persistReducer(persistConfig, contactsReducer);
-
-// export const contactsSlice = createSlice({
-//   name: 'contacts',
-//   initialState,
-//   reducers: {
-//     addContact: {
-//       reducer: (state, action) => {
-//         return {
-//           contacts: [...state.contacts, action.payload],
-//           filter: state.filter,
-//         };
-//       },
-//       prepare: contact => {
-//         const { inputName, inputNumber } = contact;
-//         return {
-//           payload: {
-//             id: nanoid(),
-//             inputName,
-//             inputNumber,
-//           },
-//         };
-//       },
-//     },
-//     deleteContact: (state, action) => {
-//       return {
-//         contacts: state.contacts.filter(({ id }) => id !== action.payload),
-//         filter: state.filter,
-//       };
-//     },
-//     filterContacts: (state, action) => {
-//       return {
-//         contacts: state.contacts,
-//         filter: action.payload,
-//       };
-//     },
-//     readContactsFromLocalStorage: {
-//       reducer: (state, action) => {
-//         return {
-//           contacts: action.payload,
-//           filter: state.filter,
-//         };
-//       },
-//       prepare: LS_KEY => {
-//         const contactsFromLocalStorage = JSON.parse(
-//           localStorage.getItem(LS_KEY)
-//         );
-//         return {
-//           payload: contactsFromLocalStorage,
-//         };
-//       },
-//     },
-//   },
-// });

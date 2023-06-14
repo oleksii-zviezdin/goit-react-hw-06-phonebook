@@ -4,21 +4,19 @@ import { useSelector } from 'react-redux';
 import { getContacts } from 'redux/selector';
 
 export const App = () => {
-  const { contacts } = useSelector(getContacts);
-
-  const contactsLength = contacts.length;
+  const contacts = useSelector(getContacts);
 
   return (
     <Container>
       <FormTitle>Phonebook</FormTitle>
       <ContactForm />
-      {contactsLength !== 0 && <Filter />}
-      {contactsLength === 0 && (
+      {contacts.length !== 0 && <Filter />}
+      {contacts.length === 0 && (
         <Notification
           message={'This is where your added contacts will be displayed'}
         />
       )}
-      {contactsLength !== 0 && (
+      {contacts.length !== 0 && (
         <>
           <ContnactsTitle>Contacts</ContnactsTitle>
           <ContactList />
